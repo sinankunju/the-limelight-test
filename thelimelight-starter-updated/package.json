@@ -16,7 +16,7 @@
     "react-dom": "18.2.0",
     "prisma": "5.11.0",
     "@prisma/client": "5.11.0",
-    "next-auth": "4.22.1",
+    "next-auth": "^4.24.7",
     "nodemailer": "6.9.3",
     "jsonwebtoken": "9.0.0",
     "swr": "2.1.0",
