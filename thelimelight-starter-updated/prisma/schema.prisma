@@ -1,0 +1,82 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Article {
+  id                 String   @id @default(uuid())
+  slug               String   @unique
+  title              String
+  subtitle           String?
+  byline             String?
+  class_issue        String?
+  category           String
+  subcategory        String?
+  excerpt            String?
+  content            String   // store HTML or ProseMirror JSON as string
+  featured_image_url String?
+  gallery            String[] @default([])
+  publish_date       DateTime?
+  status             String   @default("draft") // draft | scheduled | published | archived
+  estimated_read_min Int?
+  tags               String[] @default([])
+  seo_title          String?
+  seo_description    String?
+  canonical_url      String?
+  is_featured        Boolean  @default(false)
+  view_count         Int      @default(0)
+  created_at         DateTime @default(now())
+  updated_at         DateTime @updatedAt
+}
+
+model LitgardenSubmission {
+  id           String   @id @default(uuid())
+  submitter_name String
+  age          Int?
+  class        String?
+  email        String
+  type         String   // poem | story
+  text         String?
+  file_url     String?
+  image_url    String?
+  status       String   @default("pending") // pending | approved | rejected
+  admin_notes  String?
+  submitted_at DateTime @default(now())
+}
+
+model Media {
+  id          String   @id @default(uuid())
+  url         String
+  filename    String
+  mime_type   String
+  size_bytes  Int
+  width       Int?
+  height      Int?
+  uploaded_by String?
+  uploaded_at DateTime @default(now())
+}
+
+model Comment {
+  id         String   @id @default(uuid())
+  article_id String
+  author_name String
+  author_email String?
+  content    String
+  status     String   @default("pending") // pending | approved | rejected
+  created_at DateTime @default(now())
+  parent_id  String?
+  ip_hash    String?
+}
+
+model User {
+  id           String @id @default(uuid())
+  email        String @unique
+  name         String?
+  role         String @default("admin")
+  password_hash String?
+  created_at   DateTime @default(now())
+}
