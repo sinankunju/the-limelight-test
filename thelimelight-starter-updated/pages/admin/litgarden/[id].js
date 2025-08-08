@@ -1,5 +1,5 @@
-import prisma from '../../../../lib/prisma';
-import { sendPublicationEmail } from '../../../../utils/email';
+// import prisma from '../../../../lib/prisma';
+// import { sendPublicationEmail } from '../../../../utils/email';
 
 export default function View({ submission }) {
   if(!submission) return <div className="container"><p>Not found</p></div>
@@ -17,6 +17,6 @@ export default function View({ submission }) {
 
 export async function getServerSideProps({ params }){
   const id = params.id;
-  const submission = await prisma.litgardenSubmission.findUnique({ where: { id } });
+ // const submission = await prisma.litgardenSubmission.findUnique({ where: { id } });
   return { props: { submission: submission ? JSON.parse(JSON.stringify(submission)) : null } };
 }
